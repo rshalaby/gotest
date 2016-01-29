@@ -2,19 +2,25 @@ package main
 
 import (
 	"fmt"
+	"github.com/gorilla/mux"
+	"net/http"
+	"log"
+	"bytes"
 )
 
-type te struct {
-	url string
-	name string
-}
 
-func (t te) print() {
-	fmt.Println(t.name + " : " + t.url)
+func HomeHandler (w http.ResponseWriter, r *http.Request) {
+	var buffer bytes.Buffer
+	for i:=0; i < 1000000; i++ {
+		buffer.WriteString("Hähß")
+	}
+	fmt.Fprint(w, buffer.String())
 }
 
 func main() {
-	zu := te{"https://golang.org", "hallo go"}
+	r := mux.NewRouter()
+	r.HandleFunc("/", HomeHandler)
+	http.Handle("/", r)
 
-	zu.print()
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }
