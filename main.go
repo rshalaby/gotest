@@ -2,25 +2,13 @@ package main
 
 import (
 	"fmt"
-	"github.com/gorilla/mux"
-	"net/http"
-	"log"
-	"bytes"
+	"github.com/golang/example/stringutil"
+	//"gopkg.in/mgo.v2"
+	//"gopkg.in/mgo.v2/bson"
 )
 
-
-func HomeHandler (w http.ResponseWriter, r *http.Request) {
-	var buffer bytes.Buffer
-	for i:=0; i < 1000000; i++ {
-		buffer.WriteString("Hähß")
-	}
-	fmt.Fprint(w, buffer.String())
-}
-
 func main() {
-	r := mux.NewRouter()
-	r.HandleFunc("/", HomeHandler)
-	http.Handle("/", r)
-
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	fmt.Println(stringutil.Reverse("Hello World"))
+	fmt.Println("Hello World")
+	fmt.Printf("Hello")
 }
